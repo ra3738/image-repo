@@ -22,7 +22,8 @@ for root, dirs, files in os.walk("images"):
                 print(eachObject["name"] , " : " , eachObject["percentage_probability"])
                 allObjects.add(eachObject["name"])
             print("\n")
-            data[filename] = list(allObjects)
+            keyFileName = '/images/'+filename
+            data[keyFileName] = list(allObjects)
 
 with open(filelocation, 'w') as outfile:
     json.dump(data, outfile)

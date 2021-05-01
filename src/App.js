@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import tileData from './tileData';
 import TextField from '@material-ui/core/TextField';
 import imageDetections from './imageDetections.json'
 import labels from './labels.json'
@@ -32,6 +31,9 @@ export default function App() {
   const classes = useStyles();
   console.log(imageDetections)
   console.log(labels)
+
+  var imageData = Object.keys(imageDetections)
+
   return (
     <div className={classes.root}>
       <div className={classes.search}>
@@ -40,10 +42,15 @@ export default function App() {
         <TextField fullWidth="true" id="outlined-basic" label="Search" variant="outlined" />
       </div>
       <GridList cellHeight={180} className={classes.gridList} cols={3}>
-        {tileData.map((tile, index) => (
-          <GridListTile key={tile.img} cols={tile.cols || 1}>
-            <img src={tile.img} alt={tile.title} />
-          </GridListTile>
+        {imageData.map((tile, index) => (
+          (index%10 === 0 || (index-6)%10 === 0) ?
+          (<GridListTile key={tile} cols={2}>
+            <img src={tile} alt={tile} />
+          </GridListTile>)
+          :
+          (<GridListTile key={tile} cols={1}>
+            <img src={tile} alt={tile} />
+          </GridListTile>)
         ))}
       </GridList>
     </div>
