@@ -4,6 +4,8 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import tileData from './tileData';
 import TextField from '@material-ui/core/TextField';
+import imageDetections from './imageDetections.json'
+import labels from './labels.json'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,13 +23,15 @@ const useStyles = makeStyles((theme) => ({
   search: {
     flex: '1',
     paddingLeft: '50px',
-    paddingRight: '100px'
+    paddingRight: '100px',
+    paddingBottom: '50px'
   }
 }));
 
 export default function App() {
   const classes = useStyles();
-
+  console.log(imageDetections)
+  console.log(labels)
   return (
     <div className={classes.root}>
       <div className={classes.search}>
@@ -36,7 +40,7 @@ export default function App() {
         <TextField fullWidth="true" id="outlined-basic" label="Search" variant="outlined" />
       </div>
       <GridList cellHeight={180} className={classes.gridList} cols={3}>
-        {tileData.map((tile) => (
+        {tileData.map((tile, index) => (
           <GridListTile key={tile.img} cols={tile.cols || 1}>
             <img src={tile.img} alt={tile.title} />
           </GridListTile>
@@ -45,31 +49,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
