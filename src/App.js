@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -7,13 +7,9 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import CloseIcon from '@material-ui/icons/Close';
 import imageDetections from './imageDetections.json'
 import labels from './labels.json'
 import { render } from '@testing-library/react';
-import { ContactsTwoTone } from '@material-ui/icons';
 
 const useStyles = theme => ({
   root: {
@@ -57,10 +53,11 @@ class App extends React.Component {
       imageData: imageDataKeys,
       keywords: [],
       textFieldValue: '',
+      imageInputURL: null,
       imageInput: null
     }
     this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-    this.handleImageInput = this.handleImageInput.bind(this);
+    this.handleimageInputURL = this.handleimageInputURL.bind(this);
   }
 
   handleTextFieldChange(event) {
@@ -69,11 +66,13 @@ class App extends React.Component {
     })
   }
 
-  handleImageInput(event) {
+  handleimageInputURL(event) {
     this.setState({
-      imageInput: URL.createObjectURL(event.target.files[0])
+      imageInput: event.target.files[0],
+      imageInputURL: URL.createObjectURL(event.target.files[0])
     }, () => {
       console.log(this.state.imageInput)
+      console.log(this.state.imageInputURL)
     })
   }
 
@@ -112,7 +111,38 @@ class App extends React.Component {
     this.setState({
       imageData: Array.from(imageSet)
     })
+    this.searchImage()
     return
+  }
+
+  // searchImageBase() {
+  //   fetch('/api')
+  //   .then(res => res.json())
+  //   .then(
+  //     (result) => {
+  //       this.setState({
+  //         imageFileApi: result.title
+  //       });
+  //     }
+  //   )
+  // }
+
+  searchImage() {
+    const data = { image: this.state.imageInput };
+    fetch('/image', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'image/jpeg',
+      },
+      body: this.state.imageInput,
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   resetOnClick() {
@@ -160,11 +190,11 @@ class App extends React.Component {
           <br/><br/>
   
           <div className={classes.upload}>
-            <img src={this.state.imageInput} width="225" height="225"/>
+            <img src={this.state.imageInputURL} width="225" height="225"/>
             <br/>
             <input
               accept="image/*"
-              onChange={this.handleImageInput}
+              onChange={this.handleimageInputURL}
               className={classes.input}
               id="contained-button-file"
               multiple
@@ -174,12 +204,6 @@ class App extends React.Component {
               <Button variant="contained" color="primary" component="span">
                 Upload
               </Button>
-            </label>
-            <input accept="image/*" onChange={this.handleImageInput} className={classes.input} id="icon-button-file" type="file" />
-            <label htmlFor="icon-button-file">
-              <IconButton color="primary" aria-label="upload picture" component="span">
-                <PhotoCamera />
-              </IconButton>
             </label>
           </div>
         </div>
