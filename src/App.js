@@ -111,21 +111,8 @@ class App extends React.Component {
     this.setState({
       imageData: Array.from(imageSet)
     })
-    // this.searchImage()
     return
   }
-
-  // searchImageBase() {
-  //   fetch('/api')
-  //   .then(res => res.json())
-  //   .then(
-  //     (result) => {
-  //       this.setState({
-  //         imageFileApi: result.title
-  //       });
-  //     }
-  //   )
-  // }
 
   searchImageOnClick() {
     const data = { image: this.state.imageInput };
@@ -138,7 +125,12 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
+      console.log('Success:', data.imageObjects);
+      this.setState({
+        keywords: data.imageObjects
+      }, () => {
+        this.searchOnClick()
+      })
     })
     .catch((error) => {
       console.error('Error:', error);

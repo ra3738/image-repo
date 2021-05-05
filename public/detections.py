@@ -2,16 +2,13 @@ import json
 import os
 from imageai.Detection import ObjectDetection
 
-def detectorSetup():
+def detect(filename):
     execution_path = os.getcwd()
     detector = ObjectDetection()
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath(os.path.join(execution_path , "resnet50_coco_best_v2.1.0.h5"))
     detector.loadModel()
-
-def detect(filename):
-    detector = detectorSetup()
-    detections = detector.detectObjectsFromImage(input_image='images/'+filename, output_image_path="imagenew.jpg")
+    detections = detector.detectObjectsFromImage(input_image=filename, output_image_path="../img-analysis/imagenew.jpg")
     allObjects = set()
     for eachObject in detections:
         allObjects.add(eachObject["name"])
@@ -24,10 +21,14 @@ def detectAll():
         data = json.load(json_file)
 
     for root, dirs, files in os.walk("images"):
-        detector = detectorSetup()
+        execution_path = os.getcwd()
+        detector = ObjectDetection()
+        detector.setModelTypeAsRetinaNet()
+        detector.setModelPath(os.path.join(execution_path , "resnet50_coco_best_v2.1.0.h5"))
+        detector.loadModel()
         for filename in files:
             if filename not in data:
-                detections = detector.detectObjectsFromImage(input_image='images/'+filename, output_image_path="imagenew.jpg")
+                detections = detector.detectObjectsFromImage(input_image='images/'+filename, output_image_path="../img-analysis/imagenew.jpg")
                 allObjects = set()
                 print(filename, ":")
                 for eachObject in detections:
