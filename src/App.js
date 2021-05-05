@@ -111,7 +111,7 @@ class App extends React.Component {
     this.setState({
       imageData: Array.from(imageSet)
     })
-    this.searchImage()
+    // this.searchImage()
     return
   }
 
@@ -127,7 +127,7 @@ class App extends React.Component {
   //   )
   // }
 
-  searchImage() {
+  searchImageOnClick() {
     const data = { image: this.state.imageInput };
     fetch('/image', {
       method: 'POST',
@@ -200,11 +200,16 @@ class App extends React.Component {
               multiple
               type="file"
             />
-            <label htmlFor="contained-button-file">
-              <Button variant="contained" color="primary" component="span">
-                Upload
+            <div className={classes.buttons}>
+              <label htmlFor="contained-button-file">
+                <Button variant="contained" color="primary" component="span">
+                  Upload
+                </Button>
+              </label>
+              <Button variant="contained" color="primary" startIcon={<SearchIcon/>} onClick={() => { this.searchImageOnClick(); }}>
+                Search
               </Button>
-            </label>
+            </div>
           </div>
         </div>
         

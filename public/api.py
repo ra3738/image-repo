@@ -6,12 +6,6 @@ from PIL import Image
 
 app = Flask(__name__)
 
-# @app.route('/api', methods=['GET'])
-# def api():
-#     return {
-#         'title': 'Hello World!'
-#     }
-
 @app.route('/image', methods=['POST'])
 def image():
     nparr = np.fromstring(request.data, np.uint8)
