@@ -159,7 +159,15 @@ class App extends React.Component {
           <h1>Image Repo</h1>
           <br/><br/>
   
-          <TextField value={this.state.textFieldValue} onChange={this.handleTextFieldChange} fullWidth="true" id="outlined-basic" label="Search" variant="outlined" />
+          <TextField 
+            value={this.state.textFieldValue} 
+            onChange={this.handleTextFieldChange} 
+            placeholder="Search by keywords e.g. zebra, clock"
+            fullWidth="true" 
+            id="outlined-basic" 
+            label="Search" 
+            variant="outlined" 
+          />
           <br/><br/>
   
           <div className={classes.buttons}>

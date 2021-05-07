@@ -6,11 +6,11 @@ Download the repo and download the following files:
 
 Unzip the images.zip file and place both the images folder and the resnet model in the 'public' directory 
 
-Next open a command-line window and run `yarn start-flask-api` from the root directory to start the server. \
+Next open a command-line window and run `yarn start-flask-api` from the root directory to start the server.
 
-Open a new command-line window and run `yarn start` to run the app
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser. \
+Open a new command-line window and run `yarn start` to run the app.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Search the image repo either through keywords or by uploading an image
+Search the image repo either through keywords or by uploading an image. Add keywords using the add button and then press the search button to return images which match the keywords
 
 Run `yarn test` to run the tests for the app
