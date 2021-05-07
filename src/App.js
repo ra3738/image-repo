@@ -119,7 +119,6 @@ class App extends React.Component {
   }
 
   searchImageOnClick() {
-    const data = { image: this.state.imageInput };
     fetch('/image', {
       method: 'POST',
       headers: {
