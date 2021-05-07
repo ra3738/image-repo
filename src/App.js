@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -9,7 +9,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import imageDetections from './imageDetections.json'
 import labels from './labels.json'
-import { render } from '@testing-library/react';
 
 const useStyles = theme => ({
   root: {
@@ -172,7 +171,7 @@ class App extends React.Component {
   
           <div className={classes.buttons}>
             <Button variant="contained" color="primary" startIcon={<AddIcon/>} onClick={() => { this.addOnClick(); }}>
-              Add
+              Add Keyword
             </Button>
             <Button variant="contained" color="primary" startIcon={<SearchIcon/>} onClick={() => { this.searchOnClick(); }}>
               Search
@@ -192,7 +191,8 @@ class App extends React.Component {
             ))}
           </div>
           <br/><br/>
-  
+          
+          <h2>Search by Image</h2>
           <div className={classes.upload}>
             <img src={this.state.imageInputURL} width="225" height="225"/>
             <br/>
