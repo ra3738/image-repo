@@ -26,7 +26,6 @@ describe("tests functions", () => {
     it("should call setState on textFieldValue", () => {
       const mockEvent = {
         target: {
-          name: "textFieldValue",
           value: "zebra"
         }
       };
@@ -58,7 +57,6 @@ describe("tests functions", () => {
       }
       var mockEvent = {
         target: {
-          name: "textFieldValue",
           value: "zebra"
         }
       };
@@ -67,7 +65,6 @@ describe("tests functions", () => {
       appInstance.addOnClick();
       mockEvent = {
         target: {
-          name: "textFieldValue",
           value: "apple"
         }
       };
@@ -90,7 +87,6 @@ describe("tests functions", () => {
       }
       var mockEvent = {
         target: {
-          name: "textFieldValue",
           value: "zebra"
         }
       };
