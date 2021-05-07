@@ -92,12 +92,9 @@ class App extends React.Component {
     var word
     for (word in this.state.keywords) {
       word = this.state.keywords[word].toLowerCase()
-      console.log(this.state.keywords)
-      console.log(word)
       var detection
       for (detection in Object.keys(labels)) {
         detection = Object.keys(labels)[detection]
-        console.log(detection.includes(word))
         if (detection.includes(word)) {
           var image
           for (image in labels[detection]) {
@@ -107,11 +104,18 @@ class App extends React.Component {
         }
       }
     }
-    console.log(imageSet)
     this.setState({
       imageData: Array.from(imageSet)
     })
     return
+  }
+
+  filterDetections(imageObjects) {
+    if (imageObjects.includes("person") && imageObjects.length > 1) {
+      var index = imageObjects.indexOf("person")
+      imageObjects.splice(index, 1);
+    }
+    return imageObjects
   }
 
   searchImageOnClick() {
@@ -125,9 +129,10 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data.imageObjects);
+      console.log('Success:', data.imageObjects)
+      var imageObjects = this.filterDetections(data.imageObjects)
       this.setState({
-        keywords: data.imageObjects
+        keywords: imageObjects
       }, () => {
         this.searchOnClick()
       })
