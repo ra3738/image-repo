@@ -1,5 +1,7 @@
 # Setting up environment
 
+(This submission focuses on Search functionality in the image repo)
+
 Download the repo and download the following files:
 1. [Resnet model](https://drive.google.com/file/d/1EY9VVZKgFTvyOWjvYiqoJCh6VdaS5KuL/view?usp=sharing)
 2. [Images](https://drive.google.com/file/d/1GiZvUp_tAZsl7QU3L6BKdkVpDc9eUiFF/view?usp=sharing)
