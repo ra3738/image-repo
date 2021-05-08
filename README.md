@@ -14,6 +14,8 @@ Next run `yarn start-flask-api` from the root directory to start the server.
 Open a new command-line window and run `yarn start` to run the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Search the image repo either through keywords or by uploading an image. Add keywords using the add button and then press the search button to return images which match the keywords
+Search the image repo either through keywords or by uploading an image. Add keywords using the add button and then press the search button to return images which match the keywords. 
+
+NOTE: searching by image takes around 1.5min to process
 
 Run `yarn test` to run the tests for the app

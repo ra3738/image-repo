@@ -4,6 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
@@ -42,6 +43,18 @@ const useStyles = theme => ({
   input: {
     display: 'none',
   },
+  circleProgress: {
+    verticalAlign: 'center',
+    justifyContent: 'center',
+  },
+  imageContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    '& > *': {
+      margin: theme.spacing(1),
+      marginRight: theme.spacing(5),
+    },
+  }
 });
 
 class App extends React.Component {
@@ -52,6 +65,7 @@ class App extends React.Component {
       imageData: imageDataKeys,
       keywords: [],
       textFieldValue: '',
+      imageLoading: false,
       imageInputURL: null,
       imageInput: null
     }
@@ -118,26 +132,31 @@ class App extends React.Component {
   }
 
   searchImageOnClick() {
-    fetch('/image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'image/jpeg',
-      },
-      body: this.state.imageInput,
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Success:', data.imageObjects)
-      var imageObjects = this.filterDetections(data.imageObjects)
-      this.setState({
-        keywords: imageObjects
-      }, () => {
-        this.searchOnClick()
+    this.setState({
+      imageLoading: true
+    }, () => {
+      fetch('/image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'image/jpeg',
+        },
+        body: this.state.imageInput,
       })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data.imageObjects)
+        var imageObjects = this.filterDetections(data.imageObjects)
+        this.setState({
+          keywords: imageObjects,
+          imageLoading: false
+        }, () => {
+          this.searchOnClick()
+        })
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
   }
 
   resetOnClick() {
@@ -156,7 +175,7 @@ class App extends React.Component {
       <div className={classes.root}>
         <div className={classes.search}>
           <h1>Image Repo</h1>
-          <br/><br/>
+          <br/>
   
           <TextField 
             value={this.state.textFieldValue} 
@@ -180,7 +199,8 @@ class App extends React.Component {
               Reset
             </Button>
           </div>
-          <br/><br/>
+          <h5>Add one or more keywords and click search</h5>
+          <br/>
   
           <h2>Keywords</h2>
           <div className={classes.buttons}>
@@ -194,8 +214,17 @@ class App extends React.Component {
           
           <h2>Search by Image</h2>
           <div className={classes.upload}>
-            <img src={this.state.imageInputURL} width="225" height="225"/>
-            <br/>
+            <div className={classes.imageContainer}>
+              <img src={this.state.imageInputURL} width="225" height="225"/>
+              { this.state.imageLoading ?
+              <div className={classes.circleProgress}>
+                <CircularProgress size="5rem"/>
+                <br/><br/>
+                ~1.5 min
+              </div> 
+              : 
+              null }
+            </div>
             <input
               accept="image/*"
               onChange={this.handleimageInputURL}

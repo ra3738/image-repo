@@ -35,6 +35,7 @@ describe("tests functions", () => {
         imageData: imageDataKeys,
         keywords: [],
         textFieldValue: 'zebra',
+        imageLoading: false,
         imageInputURL: null,
         imageInput: null
       }
@@ -52,6 +53,7 @@ describe("tests functions", () => {
         imageData: imageDataKeys,
         keywords: ['zebra', 'apple'],
         textFieldValue: 'apple',
+        imageLoading: false,
         imageInputURL: null,
         imageInput: null
       }
@@ -82,6 +84,7 @@ describe("tests functions", () => {
         imageData: imageDataKeys,
         keywords: [],
         textFieldValue: 'zebra',
+        imageLoading: false,
         imageInputURL: null,
         imageInput: null
       }
